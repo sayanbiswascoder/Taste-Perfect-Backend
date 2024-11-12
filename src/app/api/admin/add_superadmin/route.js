@@ -7,9 +7,10 @@ import sendEmail from "@/utils/sendEmail"
 const GET = async(req, res) => {
   console.log("Request received")
     const db = await connectDB()
-    const password = generateTempPassword()
-
     console.log("DB", db)
+    const password = generateTempPassword()
+    console.log("Generated Password", password)
+
         
     db.collection('admins').insertOne({
         name: 'Sayan Biswas',
