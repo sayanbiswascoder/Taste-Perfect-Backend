@@ -19,7 +19,7 @@ const GET = async(req, res) => {
         <h1></h1>Your Temporary Password is: ${password}</h1>
     `);
 
-    return NextResponse.json({}, { status: 200 });
+    return NextResponse.json({ "success": "true" }, { status: 200 });
 }
 
 export { GET}
