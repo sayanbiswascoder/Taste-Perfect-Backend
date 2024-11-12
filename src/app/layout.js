@@ -20,10 +20,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <head>
+        <title>Maza Eats - Restaurant Dashboard</title>
+        <meta name="description" content="Restaurant management dashboard" />
+      </head>
+      <body>
+        <div className="min-h-screen bg-gray-100">
+          {children}
+        </div>
       </body>
     </html>
   );
