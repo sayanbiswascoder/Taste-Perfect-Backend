@@ -2,6 +2,7 @@ import { hashPassword } from "@/lib/auth"
 import { generateTempPassword } from "@/utils/generateTempPass"
 import connectDB from "@/lib/mongodb"
 import { NextResponse } from "next/server"
+import sendEmail from "@/utils/sendEmail"
 
 const GET = async(req, res) => {
     const db = await connectDB()
@@ -15,7 +16,7 @@ const GET = async(req, res) => {
         superadmin: true,
     })
 
-    sendEmail(email, 'Welcome to Taste Perfect', `
+    sendEmail('sayanbiswas6073@gmail.com', 'Welcome to Taste Perfect', `
         <h1></h1>Your Temporary Password is: ${password}</h1>
     `);
 
