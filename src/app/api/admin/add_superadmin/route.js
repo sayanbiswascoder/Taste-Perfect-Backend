@@ -5,6 +5,7 @@ import { NextResponse } from "next/server"
 import sendEmail from "@/utils/sendEmail"
 
 const GET = async(req, res) => {
+  console.log("Request received")
     const db = await connectDB()
     const password = generateTempPassword()
 
