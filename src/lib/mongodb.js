@@ -11,9 +11,7 @@ const connectDB = async() => {
       global._mongoClientPromise = await client.connect();
     }
     clientPromise = global._mongoClientPromise;
-    console.log("client promise", clientPromise)
     client = await clientPromise;
-    console.log(client)
 
     return client.db('taste-perfect');
     // const uri = process.env.MONGODB_URI;

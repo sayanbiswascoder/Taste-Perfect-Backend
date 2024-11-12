@@ -15,6 +15,7 @@ const POST = async (req, res, next) => {
 
         // Check if user exists
         const user = await db.collection('admins').findOne({ email });
+        console.log(user)
         if (!user) {
             return NextResponse.json({ error: 'Invalid email or password' }, { status: 400 });
         }
