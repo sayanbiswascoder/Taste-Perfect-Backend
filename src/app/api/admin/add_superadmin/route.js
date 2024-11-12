@@ -12,7 +12,7 @@ const GET = async(req, res) => {
         email: 'sayanbiswas6073@gmail.com',
         mobile: 9932981720,
         password: await hashPassword(password),
-        superadmin,
+        superadmin: true,
     })
 
     sendEmail(email, 'Welcome to Taste Perfect', `
