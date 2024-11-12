@@ -17,8 +17,11 @@ const BannerManager = () => {
 
   const fetchBanners = async () => {
     try {
-      const response = await axios.get('/api/admin/banner');
-      setBanners(response.data.banners); // Assuming response contains an array of banner URLs
+      await axios.get('/api/admin/banner').then((response) => {
+        if (response.statusCode === 200) {
+          setBanners(response.data);
+        }
+      }); // Assuming response contains an array of banner URLs
     } catch (error) {
       console.error('Failed to fetch banners:', error);
     }

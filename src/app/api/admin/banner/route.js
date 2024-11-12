@@ -42,6 +42,7 @@ const GET = async (req, res) => {
             if (error) {
                 resolve(NextResponse.json({ error: 'Directory read error', status: 500 }));
             }
+            console.log(files)
             resolve(NextResponse.json({ banners: files.map(file => `/banners/${file}`) }));
         });
     });
