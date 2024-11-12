@@ -1,8 +1,7 @@
 import { hashPassword } from "@/lib/auth"
 import { generateTempPassword } from "@/utils/generateTempPass"
-
-const { default: connectDB } = require("@/lib/mongodb")
-const { NextResponse } = require("next/server")
+import connectDB from "@/lib/mongodb"
+import { NextResponse } from "next/server"
 
 const GET = async(req, res) => {
     const db = await connectDB()
