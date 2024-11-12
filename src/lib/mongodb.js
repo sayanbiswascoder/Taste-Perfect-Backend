@@ -2,7 +2,7 @@ import { MongoClient } from 'mongodb';
 import mongoose from 'mongoose';
 
 
-const connectDB = handler = async(req, res) => {
+const connectDB = handler => async(req, res) => {
     // let client;
     // let clientPromise;
     
