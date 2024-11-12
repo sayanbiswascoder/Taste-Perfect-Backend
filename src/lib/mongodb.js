@@ -10,8 +10,8 @@ const connectDB = handler => async(req, res) => {
       client = new MongoClient(process.env.MONGODB_URI);
       global._mongoClientPromise = await client.connect();
     }
-    console.log(global._mongoClientPromise)
     clientPromise = global._mongoClientPromise;
+    console.log("client promise", clientPromise)
     client = await clientPromise;
     console.log(client)
 
