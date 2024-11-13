@@ -10,7 +10,7 @@ export default function LoginPage() {
   });
   const router = useRouter();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     axios.post('/api/admin/auth/login', formData).then((response) => {
       console.log(response)
@@ -21,6 +21,20 @@ export default function LoginPage() {
     }).catch((error) => {
       console.error(error);
     });
+  };
+
+  const forgetPassword = async () => {
+    if (formData.email) {
+      axios.post('/api/admin/auth/resetPassword', {
+        email: formData.email,
+      }).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.error(error);
+      })
+    }else {
+      alert('Please enter your email address.');
+    }
   };
 
   return (
@@ -38,7 +52,7 @@ export default function LoginPage() {
                 </div>
               </div>
             </div>
-            
+
             {/* Welcome text - Responsive font sizes */}
             <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-center">
               Welcome, my Friend!
@@ -55,7 +69,7 @@ export default function LoginPage() {
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-8">
               Sign in
             </h2>
-            
+
             <form className="space-y-5" onSubmit={handleSubmit}>
               {/* Email Input */}
               <div className="space-y-1">
@@ -86,13 +100,12 @@ export default function LoginPage() {
               </div>
 
               {/* Forgot Password Link */}
-              <div className="text-center">
-                <a
-                  href="#"
-                  className="text-xs md:text-sm text-gray-600 hover:text-red-500 transition-colors duration-200"
+              <div className="text-center" onClick={forgetPassword}>
+                <span
+                  className="text-xs md:text-sm text-gray-600 hover:text-red-500 transition-colors duration-200 cursor-pointer"
                 >
                   Forgot your password?
-                </a>
+                </span>
               </div>
 
               {/* Submit Button */}

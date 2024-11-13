@@ -43,6 +43,7 @@ const GET = async (req, res) => {
                 resolve(NextResponse.json({ error: 'Directory read error', status: 500 }));
             }
             console.log("uploadDir", uploadDir)
+            console.log("uploadDir", process.cwd().toString())
             // console.log(files)
             resolve(NextResponse.json({ banners: files.map(file => `/banners/${file}`) }));
         });
