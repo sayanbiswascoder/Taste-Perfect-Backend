@@ -42,7 +42,7 @@ const POST = async (req, res, next) => {
             },
         });
 
-        const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/resetPassword?token=${resetToken}`;
+        const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/admin/auth/resetPassword?token=${resetToken}`;
 
         await sendEmail(user.email, 'Password Reset',`<!DOCTYPE html>
                     <html lang="en">
@@ -137,12 +137,16 @@ const POST = async (req, res, next) => {
     }
 }
 
-const UPDATE = async (req, res, next) => {
+const PUT = async (req, res, next) => {
     const body = await req.json();
-    const { newPassword } = body;
+    const { token, newPassword } = body;
+    console.log((body.jwtToken && !token))
+    console.log((!body.jwtToken && token))
+    console.log(!newPassword);
 
 
-    if ((body.jwtToken && !body.token) || (!body.jwtToken && !body.token) || !newPassword) {
+
+    if ((body.jwtToken == undefined && !token) || (!body.jwtToken && token == undefined) || !newPassword) {
         return NextResponse.json({ error: 'Token and new password are required' }, { status: 400 });
     }
 
@@ -154,7 +158,7 @@ const UPDATE = async (req, res, next) => {
             let user = verifyToken(body.jwtToken)
             searchQuery = { _id: new ObjectId(user.userId) };
         } else {
-            searchQuery = { resetToken: body.token };
+            searchQuery = { resetToken: token };
         }
 
         // Find user by reset token and check expiration
@@ -177,4 +181,4 @@ const UPDATE = async (req, res, next) => {
     }
 };
 
-export { POST, UPDATE };
+export { POST, PUT };

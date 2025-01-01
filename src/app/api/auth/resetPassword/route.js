@@ -6,10 +6,10 @@ import { NextResponse } from 'next/server';
 
 const POST = async(req, res) => {
     const body = await req.json();
-    const { newPassword } = body;
+    const { type, newPassword } = body;
 
 
-    if ((body.jwtToken && !body.token) || (!body.jwtToken && !body.token) || !newPassword) {
+    if ((body.jwtToken == undefined && !body.token) || (!body.jwtToken == undefined && !body.token) || !newPassword) {
         return NextResponse.json({ error: 'Token and new password are required' }, { status: 400 });
     }
 
@@ -25,14 +25,15 @@ const POST = async(req, res) => {
         }
 
         // Find user by reset token and check expiration
-        const user = await db.collection('users').findOne(searchQuery);
+        const user = await db.collection(type).findOne(searchQuery);
+        console.log(user);
         if (!user || user.resetTokenExpires < Date.now()) {
             return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 });
         }
 
         // Hash the new password and update the user's password
         const hashedNewPassword = await hashPassword(newPassword);
-        await db.collection('users').updateOne(
+        await db.collection(type).updateOne(
             { _id: new ObjectId(user._id) },
             { $set: { password: hashedNewPassword }, $unset: { resetToken: "", resetTokenExpires: "" } }
         );

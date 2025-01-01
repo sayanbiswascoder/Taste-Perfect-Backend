@@ -18,7 +18,7 @@ const POST = async(req, res) => {
     if (!user) {
       return NextResponse.json({ error: 'Invalid email or password' }, { status: 400 });
     }
-
+    
     // Verify the password
     const isPasswordValid = await verifyPassword(password, user.password);
     if (!isPasswordValid) {
@@ -31,7 +31,7 @@ const POST = async(req, res) => {
     return NextResponse.json({ message: 'Login successful', token }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: 'Database error' }, { status: 500 });
+    return NextResponse.json({ message: 'Database error' }, { status: 500 });
   }
 }
 

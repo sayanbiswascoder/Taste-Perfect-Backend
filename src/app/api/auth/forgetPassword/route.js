@@ -5,9 +5,10 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 const POST = async(req, res) => {
-  const { email } = await req.json();
+  const { type, email } = await req.json();
+  console.log(type, email)
 
-  if (!email) {
+  if (!type || !email) {
     return NextResponse.json({ error: 'Email is required' }, { status: 400 });
   }
 
@@ -15,7 +16,7 @@ const POST = async(req, res) => {
     const db = await connectDB();
 
     // Check if user exists
-    const user = await db.collection('users').findOne({ email });
+    const user = await db.collection(type).findOne({ email });
     if (!user) {
       return NextResponse.json({ error: 'User with this email does not exist' }, { status: 404 });
     }
@@ -39,7 +40,7 @@ const POST = async(req, res) => {
       },
     });
 
-    const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password?token=${resetToken}`;
+    const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/resetPassword?type=${type}&token=${resetToken}`;
 
     await transporter.sendMail({
       from: process.env.EMAIL_FROM,
@@ -52,7 +53,7 @@ const POST = async(req, res) => {
     return NextResponse.json({ message: 'Password reset link sent' }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: 'Error sending reset email' }, { status: 500 });
+    return NextResponse.json({ message: 'Error sending reset email' }, { status: 500 });
   }
 }
 
