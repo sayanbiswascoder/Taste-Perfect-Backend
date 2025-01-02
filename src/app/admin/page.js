@@ -4,6 +4,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import Sidebar from '../../components/admin/Sidebar';
 import Header from '../../components/admin/Header';
 import RestaurantTable from '../../components/admin/RestaurantTable';
+import RestaurantManager from '@/components/admin/RestaurantManager';
 import LoadingSpinner from '@/components/admin/LoadingSpinner';
 import BannerManager from '@/components/admin/BannerManager';
 import AdminManager from '@/components/admin/AdminManager';
@@ -23,7 +24,7 @@ export default function DashboardPage() {
     },
     "restaurants": {
       "title": "Restaurants Table",
-      "component": <RestaurantTable />
+      "component": <RestaurantManager />
     },
     "orders": {
       "title": "Past orders",
