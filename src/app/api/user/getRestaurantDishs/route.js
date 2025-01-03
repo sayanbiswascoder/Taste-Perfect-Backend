@@ -17,13 +17,15 @@ const POST = async (req, res) => {
     }
 
     let dishes = []
+    let i = 1;
 
-    for (const catagory of Object.keys(restaurant.catagory)){
+    for (const category of Object.keys(restaurant.catagory)){
         let t = {
-            catagory: catagory,
+            id: i++,
+            category: category.toUpperCase(),
         }
         let item = []
-        for (const dish of restaurant.catagory[catagory]){
+        for (const dish of restaurant.catagory[category]){
             let d = await db.collection('dishes').findOne({ _id: new ObjectId(dish) });
             item.push(d)
         }
