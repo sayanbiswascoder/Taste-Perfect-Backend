@@ -35,11 +35,10 @@ const POST = async (req, res, next) => {
 
         
         let categorys = restaurant.category
-        console.log(categorys);
-        if (!categorys[category.toLowerCase()]) {
-            categorys[category.toLowerCase()] = [dish.insertedId]
+        if (!categorys[category.trim().toLowerCase()]) {
+            categorys[category.trim().toLowerCase()] = [dish.insertedId]
         } else {
-            categorys[category.toLowerCase()].push(dish.insertedId)
+            categorys[category.trim().toLowerCase()].push(dish.insertedId)
         }
 
         await db.collection('restaurants').updateOne({ _id: restaurant._id }, { $set: { category: categorys } });

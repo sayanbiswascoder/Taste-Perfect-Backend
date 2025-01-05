@@ -23,8 +23,8 @@ const POST = async (req, res, next) => {
         const { dishId, category } = await req.json();
 
         const dish = await db.collection('dishes').deleteOne({ _id: new ObjectId(dishId) });
-        console.log(restaurant.category, category)
-        restaurant.category[category.toLowerCase()].items.remove(dishId);
+        console.log(restaurant.category[category.toLowerCase()], category)
+        restaurant.category[category.toLowerCase()].splice(restaurant.category[category.toLowerCase()].indexOf(new ObjectId(dishId)), 1);
         await db.collection('restaurants').updateOne({ _id: new ObjectId(restaurant._id) }, { $set: { category: restaurant.category } });
 
 
